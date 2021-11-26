@@ -1,119 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <title>Week2IP</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<title>Week2IP</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
+
 <body>
+	<div class="container">
+		<h2>Birthday Name Calculation web Application</h2>
+		<p>The application takes your birthday and calculates the day of the week you were born and then depending on your gender outputs your Akan Name.</p>
+		<form class="form-inline" action="" onsubmit="return checkForm(this);">
+			<div class="form-group">
+				<label for="email">DOB:</label>
+				<input type="text" size="12" required placeholder="dd/mm/yyyy" name="dob"> </div>
+			<label for="sel1">Select Gender:</label>
+			<select class="form-control" id="gender" name="gender">
+				<option>Male</option>
+				<option> Female</option>
+			</select>
+			<button type="submit" class="btn btn-default">Submit</button>
+		</form>
+	</div>
+	<script type="text/javascript">
+	function checkForm(form) {
+		// regular expression to match required date format
+		re = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/;
+		if(form.dob.value != '') {
+			if(regs = form.dob.value.match(re)) {
+				// day value between 1 and 31
+				if(regs[1] < 1 || regs[1] > 31) {
+					alert("Invalid value for day, please enter a valid day: " + regs[1]);
+					w
+					form.dob.focus();
+					return false;
+				}
+				// month value between 1 and 12
+				if(regs[2] < 1 || regs[2] > 12) {
+					alert("Invalid value for month, please enter a valid month: " + regs[2]);
+					form.dob.focus();
+					return false;
+				}
+				// year value between 1902 and 2021
+				if(regs[3] > (new Date()).getFullYear()) {
+					alert("Invalid value for year, please enter a valid year: " + regs[3] + " - must be less than or equal to  " + (new Date()).getFullYear());
+					form.dob.focus();
+					return false;
+				}
+			} else {
+				alert("Invalid date format use dd/mm/yyyy: " + form.dob.value);
+				form.dob.focus();
+				return false;
+			}
+		}
+		//alert("DOB is okay");
+		var gender = document.getElementById('gender').value;
+		//alert(form.gender.value);
+		function farLeft(CC) {
+			return((CC / 4) - 2 * CC - 1);
+		}
 
-<div class="container">
-  <h2>Birthday Name Calculation web Application</h2>
-  <p>The application takes your birthday and calculates the day of the week you were born and then depending on your gender outputs your Akan Name.</p>
-  <form class="form-inline" action="" onsubmit="return checkForm(this);">
-    <div class="form-group">
-      <label for="email">DOB:</label>
-      <input type="text" size="12" required placeholder="dd/mm/yyyy" name="dob">
-    </div>
-    <label for="sel1">Select Gender:</label>
- <select class="form-control" id="gender" name = "gender">
-   <option>Male</option>
-   <option> Female</option>
- </select>
-    <button type="submit" class="btn btn-default">Submit</button>
-  </form>
-</div>
+		function middle(YY) {
+			return(5 * YY / 4);
+		}
 
-<script type="text/javascript">
-
-
-
-function checkForm(form)
-{
-// regular expression to match required date format
-re = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/;
-
-
-
-if(form.dob.value != '') {
-if(regs = form.dob.value.match(re)) {
-// day value between 1 and 31
-if(regs[1] < 1 || regs[1] > 31) {
-alert("Invalid value for day, please enter a valid day: " + regs[1]);w
-form.dob.focus();
-return false;
-}
-// month value between 1 and 12
-if(regs[2] < 1 || regs[2] > 12) {
-alert("Invalid value for month, please enter a valid month: " + regs[2]);
-form.dob.focus();
-return false;
-}
-// year value between 1902 and 2021
-if(regs[3] > (new Date()).getFullYear()) {
-alert("Invalid value for year, please enter a valid year: " + regs[3] + " - must be less than or equal to  " + (new Date()).getFullYear());
-form.dob.focus();
-return false;
-}
-} else {
-alert("Invalid date format use dd/mm/yyyy: " + form.dob.value);
-form.dob.focus();
-return false;
-}
-}
-//alert("DOB is okay");
-
-var gender = document.getElementById('gender').value;
-//alert(form.gender.value);
-
-
-function farLeft(CC) {
-    return ((CC / 4) - 2 * CC - 1);
-}
-
-function middle(YY) {
-    return (5 * YY / 4);
-}
-
-function farRight(MM) {
-    return (26 * (MM + 1) / 10);
-}
-
-//var birthdayYear = Number(prompt("Which year were you born?"))
-//var gender = prompt("What is your gender?")
-
-const farLeftResult = farLeft(10)
-const farRightResult = farRight(10)
-const middleResult = middle(regs[3])
-
-var calculationResult = (farLeftResult + middleResult + farRightResult + 10) % 7
-const wholeNumber = calculationResult.toPrecision(1);
-//alert(wholeNumber);
-
-// calculationResult = 2
-const maleNames = ["Kwasi", "Kwadwo", "Kwabena", "Kwaku", "Yaw", "Kofi", "Kwame"];
-const femaleNames = ["Akosua", "Adwoa", "Abenaa", "Akua", "Yaa", "Afua", "Ama"];
-//alert(maleNames);
-var result;
-if (gender == "Male") {
-    result = maleNames[wholeNumber]
-} else if (gender == "Female") {
-    result = femaleNames[wholeNumber]
-}
-else {
-    alert('Enter a valid gender')
-}
-
-alert(`Your day name is ${result}`, )
-
-return true;
-}
-
-
-
-</script>
+		function farRight(MM) {
+			return(26 * (MM + 1) / 10);
+		}
+		//var birthdayYear = Number(prompt("Which year were you born?"))
+		//var gender = prompt("What is your gender?")
+		const farLeftResult = farLeft(10)
+		const farRightResult = farRight(10)
+		const middleResult = middle(regs[3])
+		var calculationResult = (farLeftResult + middleResult + farRightResult + 10) % 7
+		const wholeNumber = calculationResult.toPrecision(1);
+		//alert(wholeNumber);
+		// calculationResult = 2
+		const maleNames = ["Kwasi", "Kwadwo", "Kwabena", "Kwaku", "Yaw", "Kofi", "Kwame"];
+		const femaleNames = ["Akosua", "Adwoa", "Abenaa", "Akua", "Yaa", "Afua", "Ama"];
+		//alert(maleNames);
+		var result;
+		if(gender == "Male") {
+			result = maleNames[wholeNumber]
+		} else if(gender == "Female") {
+			result = femaleNames[wholeNumber]
+		} else {
+			alert('Enter a valid gender')
+		}
+		alert(`Your day name is ${result}`, )
+		return true;
+	}
+	</script>
 </body>
+
 </html>
